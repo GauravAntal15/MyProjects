@@ -1,6 +1,6 @@
 #Name : Gaurav Antal
 #Section : G
-#University Roll number : 2014660
+#University Roll number : xxxxxxx
 #Mini-Project : voice based mail
 
 import datetime
@@ -31,7 +31,7 @@ def today():
             else:
                         say("good evening sir")
 
-            say("I am your personal assistant antlaa")
+            say("I am your personal assistant ")
 
 def request_info():
     try:
@@ -49,9 +49,9 @@ def send_email(receiver, subject, message):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     # Make sure to give app access in your Google account
-    server.login('myemailaddressisantal@gmail.com', 'Guruji19021302#@.Gsg')
+    server.login('abc@gmail.com', '***********')
     email = EmailMessage()
-    email['From'] = 'myemailaddressisantal@gmail.com'
+    email['From'] = 'abc@gmail.com'
     email['To'] = receiver
     email['Subject'] = subject
     email.set_content(message)
@@ -60,10 +60,10 @@ def send_email(receiver, subject, message):
 
 email_list = {
 
-    'gaurav' : 'goluantal99@gmial.com',
-    'anchal': 'aanchalantal@gmail.com',
-    'narendra': 'narendraantal@gmail.com',
-    'lakshya' : 'shersiaguruji@gmail.com'
+    'qwe' : 'qwe99@gmial.com',
+    'xyz': 'xyz@gmail.com',
+    'nare': 'nare@gmail.com',
+    'lak' : 'lak@gmail.com'
 }
 
 
