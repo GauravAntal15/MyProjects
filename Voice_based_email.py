@@ -3,8 +3,6 @@
 #University Roll number : xxxxxxx
 #Mini-Project : voice based mail
 
-import datetime
-# A date in python is not a data type of its own, can import a module named datetime to work with dates as date object.
 import smtplib
 import speech_recognition as sr
 import pyttsx3
@@ -19,19 +17,6 @@ voices = engine_on.getProperty('voices')
 def say(text):
     engine_on.say(text)
     engine_on.runAndWait()
-
-def today():
-            hour = int(datetime.datetime.now().hour)
-            if hour >= 0 and hour < 12:
-                        say("good morning sir")
-
-            elif hour >=12 and hour < 18:
-                        say("good afternoon sir")
-
-            else:
-                        say("good evening sir")
-
-            say("I am your personal assistant ")
 
 def request_info():
     try:
@@ -90,5 +75,5 @@ def request_email_info():
     if 'yes' in send_more:
         request_email_info()
 
-today()
+
 request_email_info()
