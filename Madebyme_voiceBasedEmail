@@ -1,0 +1,168 @@
+#Name : Gaurav Antal
+#Section : G
+#University Roll number : 2014660
+#Mini-Project : voice based mail
+
+import datetime
+import smtplib
+import speech_recognition as sr
+import pyttsx3
+from playsound import playsound
+from gtts import gTTS
+import winsound
+from email.message import EmailMessage
+
+
+engine_on = pyttsx3.init()
+voices = engine_on.getProperty('voices')
+voices =engine_on.setProperty('voice',voices[1].id)
+
+def say(text):
+    engine_on.say(text)
+    engine_on.runAndWait()
+
+frequency = 2000
+duration = 1000
+
+def playaudio(audio):
+    playsound(audio)
+
+def convert_to_audio1(text):
+    audio = gTTS(text)
+    audio.save("textaudio1.mp3")
+    playaudio("textaudio1.mp3")
+
+def convert_to_audio2(text):
+    audio = gTTS(text)
+    audio.save("textaudio2.mp3")
+    playaudio("textaudio2.mp3")
+
+def convert_to_audio3(text):
+     audio = gTTS(text)
+     audio.save("textaudio3.mp3")
+     playaudio("textaudio3.mp3")
+
+def convert_to_audio4(text):
+     audio = gTTS(text)
+     audio.save("textaudio4.mp3")
+     playaudio("textaudio4.mp3")
+
+def convert_to_audio5(text):
+     audio = gTTS(text)
+     audio.save("textaudio5.mp3")
+     playaudio("textaudio5.mp3")
+
+def convert_to_audio6(text):
+     audio = gTTS(text)
+     audio.save("textaudio6.mp3")
+     playaudio("textaudio6.mp3")
+
+def convert_to_audio7(text):
+     audio = gTTS(text)
+     audio.save("textaudio7.mp3")
+     playaudio("textaudio7.mp3")
+
+def convert_to_audio8(text):
+    audio = gTTS(text)
+    audio.save("textaudio8.mp3")
+    playaudio("textaudio8.mp3")
+
+def convert_to_audio9(text):
+    audio = gTTS(text)
+    audio.save("textaudio9.mp3")
+    playaudio("textaudio9.mp3")
+
+def convert_to_audio10(text):
+    audio = gTTS(text)
+    audio.save("textaudio10.mp3")
+    playaudio("textaudio10.mp3")
+
+def convert_to_audio11(text):
+    audio = gTTS(text)
+    audio.save("textaudio11.mp3")
+    playaudio("textaudio11.mp3")
+
+
+
+listener = sr.Recognizer()
+
+
+def today():
+            hour = int(datetime.datetime.now().hour)
+            if hour >= 0 and hour < 12:
+                        convert_to_audio1("good morning sir")
+
+            elif hour >=12 and hour < 18:
+                        convert_to_audio2("good afternoon sir")
+
+            else:
+                        convert_to_audio3("good evening sir")
+
+            convert_to_audio4("I am your personal assistant ")
+
+def request_info():
+    try:
+        with sr.Microphone() as source:
+            print('listening...')
+            winsound.Beep(frequency,duration)
+            voice = listener.listen(source)
+            info = listener.recognize_google(voice)
+            print(info)
+            say("you say" + info)
+
+            return info.lower()
+    except:
+        print("Not working")
+
+
+
+def send_email(receiver, subject, message):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    # Make sure to give app access in your Google account
+    server.login('myemailaddressisantal@gmail.com', 'Guruji55Antal#')
+    email = EmailMessage()
+    email['From'] = 'myemailaddressisantal@gmail.com'
+    email['To'] = receiver
+    email['Subject'] = subject
+    email.set_content(message)
+    server.send_message(email)
+
+
+email_list = {
+
+    'gaurav' : 'goluantal99@gmail.com',
+    'anchal': 'aanchalantal@gmail.com',
+    'narendra': 'narendraantal@gmail.com',
+    'lakshya' : 'shersiaguruji@gmail.com'
+}
+
+
+def request_email_info():
+    convert_to_audio5('To Whom you want to send email')
+    try:
+        key = request_info()
+        receiver = email_list[key]
+
+    except:
+        convert_to_audio6("name not found sir")
+        return 0
+
+    print(receiver) #reciver email
+    convert_to_audio7('What is the subject of your email?')
+    subject = request_info()
+    convert_to_audio8('Tell me the text in your email')
+    message = request_info()
+    send_email(receiver, subject, message)
+    convert_to_audio9('Hey . Your email is sent')
+    convert_to_audio10('Do you want to send more email?')
+    send_more = request_info()
+    if 'yes' in send_more:
+        request_email_info()
+
+    convert_to_audio11("Thanku sir have a nice day")
+    print("Thankyou sir have a nice day")
+
+
+today()
+request_email_info()
