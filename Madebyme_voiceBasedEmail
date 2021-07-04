@@ -3,23 +3,31 @@
 #University Roll number : 2014660
 #Mini-Project : voice based mail
 
+
 import datetime
 import smtplib
+
 import speech_recognition as sr
+listener = sr.Recognizer()
+
 import pyttsx3
-from playsound import playsound
-from gtts import gTTS
-import winsound
+engine_on1 = pyttsx3.init()
+voices = engine_on1.getProperty('voices')
+voices =engine_on1.setProperty('voice',voices[1].id)
+
+
+
 from email.message import EmailMessage
+from playsound import playsound
+
+from gtts import gTTS
+
+import winsound
 
 
-engine_on = pyttsx3.init()
-voices = engine_on.getProperty('voices')
-voices =engine_on.setProperty('voice',voices[1].id)
-
-def say(text):
-    engine_on.say(text)
-    engine_on.runAndWait()
+def reply(text):
+    engine_on1.say(text)
+    engine_on1.runAndWait()
 
 frequency = 2000
 duration = 1000
@@ -81,10 +89,11 @@ def convert_to_audio11(text):
     audio = gTTS(text)
     audio.save("textaudio11.mp3")
     playaudio("textaudio11.mp3")
+def convert_to_audio12(text):
+    audio = gTTS(text)
+    audio.save("textaudio12.mp3")
+    playaudio("textaudio12.mp3")
 
-
-
-listener = sr.Recognizer()
 
 
 def today():
@@ -108,7 +117,7 @@ def request_info():
             voice = listener.listen(source)
             info = listener.recognize_google(voice)
             print(info)
-            say("you say" + info)
+            reply("you say" + info)
 
             return info.lower()
     except:
@@ -116,25 +125,37 @@ def request_info():
 
 
 
-def send_email(receiver, subject, message):
+def send_email(receiver,receiver_two, subject, message):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     # Make sure to give app access in your Google account
-    server.login('xyz@gmail.com', 'xxxxxx')
+    server.login('ADFBDFBDSB@gmail.com', 'sfdbadfnrtger')
     email = EmailMessage()
-    email['From'] = 'xyz@gmail.com'
+    email['From'] = 'mavadfvadf.com'
     email['To'] = receiver
+    email['Cc'] = receiver_two
     email['Subject'] = subject
-    email.set_content(message)
+    email.set_content(message + '\n'+ '\n'+ 'This is an voice genrated email by blind person if something is not correct call to xyz community '+'\n'+'\n'+'Phone NO. 91xxx' +'\n'+'\n' +' You can enquiry Donation though this link for blind child  '+'\n'+ '\n' +'http://localhost/guruji-website/dynamic-website/All%20Assignment/forvoicebasedemail.php')
+    reply('Do you want to send security email?')
+    security = request_info()
+    if 'yes' in security:
+        email['Bcc'] = 'axcvsdsfvbad@gmail.com'
+
+
+
+
     server.send_message(email)
+
 
 
 email_list = {
 
-    'abc' : 'abc@gmail.com',
-    'def': 'def@gmail.com',
-    'xyz': 'xyz.com',
-    'ack' : 'ack@gmail.com'
+    'gaurav' : 'dfvas@gmail.com',
+    'anchal': 'asdab@gmail.com',
+    'narendra': 'berhre@gmail.com',
+    'lakshya' : 'fbeger@gmail.com',
+    'golu' : 'adfbdfb@gmail.com',
+    'shubham': 'dfdfbdfbdb@gmail.com'
 }
 
 
@@ -143,6 +164,14 @@ def request_email_info():
     try:
         key = request_info()
         receiver = email_list[key]
+        print(receiver)
+        reply("Do you send also to second people")
+        more = request_info()
+        reply('To Whom you want to send email')
+        if 'yes' in more:
+         key = request_info()
+         receiver_two = email_list[key]
+         print(receiver_two)
 
     except:
         convert_to_audio6("name not found sir")
@@ -153,16 +182,74 @@ def request_email_info():
     subject = request_info()
     convert_to_audio8('Tell me the text in your email')
     message = request_info()
-    send_email(receiver, subject, message)
+    send_email(receiver,receiver_two, subject, message)
     convert_to_audio9('Hey . Your email is sent')
-    convert_to_audio10('Do you want to send more email?')
-    send_more = request_info()
-    if 'yes' in send_more:
-        request_email_info()
 
-    convert_to_audio11("Thanku sir have a nice day")
+
+def send_more():
+    convert_to_audio10('Do you want to send more email?')
+    send_more = second_request()
+    if 'yes' in send_more:
+      second_confirm()
+
+    reply("Thanku sir have a nice day")
     print("Thankyou sir have a nice day")
+
+def second_request():
+    try:
+        with sr.Microphone() as source:
+            print('listening...')
+            winsound.Beep(frequency,duration)
+            voice = listener.listen(source)
+            info = listener.recognize_google(voice)
+            print(info)
+            reply("you say" + info)
+
+            return info.lower()
+    except:
+        print("Not working")
+
+
+
+def second_confirm():
+    reply('To Whom you want to send email')
+    try:
+        key = second_request()
+        receiver = email_list[key]
+        print(receiver)
+        reply("Do you send also to second people")
+        more = request_info()
+        if 'yes' in more:
+            reply('To Whom you want to send email')
+            key = request_info()
+            receiver_two = email_list[key]
+            print(receiver_two)
+
+    except:
+        reply("name not found sir")
+        return 0
+
+    print(receiver) #reciver email
+    reply('What is the subject of your email?')
+    subject = second_request()
+    reply('Tell me the text in your email')
+    message =second_request()
+    send_email(receiver,receiver_two, subject, message)
+    reply('Hey . Your email is sent')
+    reply('Do you want to send more email?')
+    send_more = second_request()
+    if 'yes' in send_more:
+        second_confirm()
+
 
 
 today()
 request_email_info()
+
+engine_on2 = pyttsx3.init()
+voices = engine_on2.getProperty('voices')
+voices =engine_on2.setProperty('voice',voices[0].id)
+
+send_more()
+
+
